@@ -1,0 +1,23 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "babel src/index.js --out-file dist/bundle.js"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.15",
+    "@babel/core": "^7.22.20",
+    "@babel/plugin-syntax-jsx": "^7.22.5",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-typescript": "^7.22.15",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@babel/plugin-transform-react-jsx": "^7.22.15"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
