@@ -10,7 +10,7 @@ Abre o arquivo `testing.html` no seu navegador.
 
 ## Aviso
 
-Ainda não temos useEffect, style prop, useEffect e reconciliação por chave.
+Ainda não temos style prop, flatten childs, useEffect e reconciliação por chave.
 Irei implementar isso pouco a pouco.
 
 ## Referência
