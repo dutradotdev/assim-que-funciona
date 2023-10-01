@@ -46,6 +46,7 @@ const isEvent = (key) => key.startsWith("on");
 const isProperty = (key) => key !== "children" && !isEvent(key);
 const isNew = (prev, next) => (key) => prev[key] !== next[key];
 const isGone = (prev, next) => (key) => !(key in next);
+const isStyle = (key) => key === "style";
 
 function updateDom(dom, prevProps, nextProps) {
   Object.keys(prevProps)
@@ -77,6 +78,17 @@ function updateDom(dom, prevProps, nextProps) {
       const eventType = name.toLowerCase().substring(2);
       dom.addEventListener(eventType, nextProps[name]);
     });
+
+  Object.keys(nextProps)
+    .filter(isStyle)
+    .filter(isNew(prevProps, nextProps))
+    .forEach((name) => {
+      for (let key in nextProps[name]) {
+        dom.style.setProperty(key, nextProps[name][key]);
+      }
+
+      console.log(dom);
+    });
 }
 
 function commitRoot() {
@@ -98,7 +110,6 @@ function commitWork(fiber) {
   const domParent = domParentFiber.dom;
 
   if (fiber.effectTag === "PLACEMENT" && fiber.dom != null) {
-    console.log("fiber.dom", fiber.dom, domParent);
     domParent.appendChild(fiber.dom);
   } else if (fiber.effectTag === "UPDATE" && fiber.dom != null) {
     updateDom(fiber.dom, fiber.alternate.props, fiber.props);
@@ -287,10 +298,20 @@ const Didact = {
 
 /** @jsx Didact.createElement */
 function Counter() {
-  const [state, setState] = Didact.useState(1);
-  return <h1 onClick={() => setState((c) => c + 1)}>Count: {state}</h1>;
+  const [value, setValue] = Didact.useState(1);
+  const [color, setColor] = Didact.useState("red");
+
+  const onClick = () => {
+    setValue((v) => v + 1);
+    setColor((color) => (color === "red" ? "blue" : "red"));
+  };
+
+  return (
+    <h1 style={{ color }} onClick={onClick}>
+      Count: {value}
+    </h1>
+  );
 }
 const didactElement = <Counter />;
 const container = document.getElementById("root");
-console.log({ container });
 Didact.render(didactElement, container);
