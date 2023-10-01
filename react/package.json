@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "babel": "babel src/index.js --out-file dist/bundle.js"
+    "start": "babel src/index.js --out-file dist/bundle.js && http-server"
   },
   "devDependencies": {
     "@babel/cli": "^7.22.15",
