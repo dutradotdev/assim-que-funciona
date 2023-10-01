@@ -86,8 +86,6 @@ function updateDom(dom, prevProps, nextProps) {
       for (let key in nextProps[name]) {
         dom.style.setProperty(key, nextProps[name][key]);
       }
-
-      console.log(dom);
     });
 }
 
